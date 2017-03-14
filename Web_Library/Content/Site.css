@@ -1,7 +1,8 @@
 ﻿body {
     padding-bottom: 20px;
-    background-color:black;
-    color: chartreuse;
+    background-color: darkslategrey;
+    color: black;
+    height: 100vh;
 }
 
 .body-content {
@@ -11,6 +12,12 @@
 
 .dl-horizontal dt {
     white-space: normal;
+}
+
+.side {
+    height: 100vh;
+    padding-right: 0px;
+    padding-left: 0px;
 }
 
 input,
@@ -31,4 +38,34 @@ textarea {
     -ms-filter: blur(3px);
     filter: blur(3px);
     z-index: -1;
+}
+
+#left-side {
+    background-image: url(Images/books.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#right-side {
+    background-image: url(Images/authors.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+footer {
+    position: fixed;
+    bottom: 0px;
+}
+
+div.side a {
+    height: inherit;
+    display: block;
+    text-align: center;
+    padding-top: 50vh;
+    transition-duration: 0.7s;
+    border-radius: 3px;
+}
+
+div.side a:hover {
+    background-color: rgba(0, 0, 0, 0.3)
 }
