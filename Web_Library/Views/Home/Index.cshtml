@@ -1,12 +1,18 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Navigation Page";
 }
 
 <div class="row">
     <div class="col-xs-6 side" id="left-side">
-        @Html.ActionLink(" ", "Index", "Home")
+        <h1 class="link-text">Books</h1>
+        @Html.ActionLink(" ", "Index", "Home", new { @id = "left-link" })
     </div>
     <div class="col-xs-6 side" id="right-side">
-        @Html.ActionLink(" ", "Index", "Home")
+        <h1 class="link-text">Authors</h1>
+        @Html.ActionLink(" ", "Index", "Home", new {@id = "right-link" })
     </div>
 </div>
+
+@section scripts {
+    <script src="~/Scripts/IndexScript.js"></script>
+}

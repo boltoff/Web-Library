@@ -163,9 +163,9 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\authors.jpeg" />
-    <Content Include="Content\Images\books.jpg" />
+    <Content Include="Content\Images\authors.jpg" />
     <Content Include="Content\Images\Bookshelf.jpg" />
+    <Content Include="Content\Images\books.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -175,7 +175,11 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="fonts\Lora-Regular.ttf" />
+    <Content Include="fonts\Fondamento-Italic.ttf" />
+    <Content Include="fonts\Fondamento-Regular.ttf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\IndexScript.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
