@@ -7,6 +7,8 @@
     }
 }
 
+@Html.ActionLink("Back to Navigation", "Index", "Home", new {@id = "to-navigation-button" })
+
 <div id="grid">
     @grid.GetHtml(tableStyle: "table",
         headerStyle: "header",
@@ -22,7 +24,23 @@
             grid.Column("Title"),
             grid.Column("AuthorName", "Author"),
             grid.Column("PublishedDate", "Published Date"),
-            grid.Column("ISBN")
+            grid.Column("ISBN"),
+            grid.Column(format: (item) => Html.ActionLink(
+                "Edit",
+                "Index",
+                "Home",
+                new {
+                    @bookId = item.Id
+                },
+                null)),
+            grid.Column(format: (item) => Html.ActionLink(
+                "Delete",
+                "Index",
+                "Home",
+                new {
+                    @bookId = item.Id
+                },
+                null))
         })
 </div>
 
