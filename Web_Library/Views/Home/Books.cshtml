@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Books";
+    var grid = new WebGrid(ViewBag.Data, rowsPerPage: 5, defaultSort: "ID");
+    @section background {
+        <div id="back-image"></div>
+    }
+}
+
+<div id="grid">
+    @grid.GetHtml(tableStyle: "table",
+        headerStyle: "header",
+        fillEmptyRows: true,
+        footerStyle: "grid-footer",
+        mode: WebGridPagerModes.All,
+        firstText: "<< First",
+        previousText: "< Prev",
+        nextText: "Next >",
+        lastText: "Last >>",
+        columns: new[]
+        {
+            grid.Column("Title"),
+            grid.Column("AuthorName", "Author"),
+            grid.Column("PublishedDate", "Published Date"),
+            grid.Column("ISBN")
+        })
+</div>
+
+

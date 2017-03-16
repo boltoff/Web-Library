@@ -11,7 +11,7 @@ namespace Web_Library.Models
 
         public string Title { get; set; }
 
-        public DateTime PublishedDate { get; set; }
+        public DateTime? PublishedDate { get; set; }
 
         public string ISBN { get; set; }
 

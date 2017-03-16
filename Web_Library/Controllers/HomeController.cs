@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -17,7 +18,15 @@ namespace Web_Library.Controllers
             return View();
         }
 
-        //code bellow allow you to execute the choosen stored procedure from local Database "WebLibraryDB"
+        public ActionResult Books()
+        {
+            List<Book> bookslist = new List<Book>();
+            ExecuteProcedureSelect(ref bookslist);
+            ViewBag.Data = bookslist;
+            return View();
+        }
+
+        //code bellow allow you to execute choosen stored procedure from local Database "WebLibraryDB"
 
         /// <summary>
         /// Execute Select stored procedure for Books Table
@@ -36,11 +45,18 @@ namespace Web_Library.Controllers
                     SqlDataReader sdr = cmd.ExecuteReader();
                     while (sdr.Read())
                     {
+                        DateTime? pubdate;
+
+                        if (DBNull.Value.Equals(sdr[2]))
+                            pubdate = null;
+                        else
+                            pubdate = (DateTime)sdr[2];
+
                         books.Add(new Book()
                         {
                             ID = (int)sdr[0],
                             Title = (string)sdr[1],
-                            PublishedDate = (DateTime)sdr[2],
+                            PublishedDate = pubdate,
                             ISBN = (string)sdr[3],
                             AuthorName = (string)sdr[4]
                         });
@@ -48,6 +64,7 @@ namespace Web_Library.Controllers
                 }
                 catch (Exception ex)
                 {
+                    Debug.WriteLine("My Error:" + ex);
                 }
             }
         }
