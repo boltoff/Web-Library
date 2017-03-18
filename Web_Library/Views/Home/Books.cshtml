@@ -35,12 +35,12 @@
                 null)),
             grid.Column(format: (item) => Html.ActionLink(
                 "Delete",
-                "Index",
+                "BookActionDelete",
                 "Home",
                 new {
                     @bookId = item.Id
                 },
-                null))
+                new { onclick="return confirm('Are you sure you want to delete this book?')" }))
         })
 </div>
 

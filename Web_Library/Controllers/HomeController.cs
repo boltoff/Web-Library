@@ -71,7 +71,6 @@ namespace Web_Library.Controllers
         /// </summary>
         /// <param name="bookId"></param>
         /// <returns></returns>
-        [HttpPost]
         public ActionResult BookActionDelete(int bookId)
         {
             ExecuteProcedureDelete(bookId, "BooksDelete");
