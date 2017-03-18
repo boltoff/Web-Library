@@ -21,18 +21,79 @@ namespace Web_Library.Controllers
         public ActionResult Books()
         {
             List<Book> bookslist = new List<Book>();
-            ExecuteProcedureSelect(ref bookslist);
+            ExecuteProcedureSelectAll(ref bookslist);
             ViewBag.Data = bookslist;
             return View();
+        }
+
+
+        /// <summary>
+        /// Get Insert or Update View
+        /// </summary>
+        /// <param name="book">if book not null it's Update View</param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult BookAction(int? bookId = null)
+        {
+            List<Author> authors = new List<Author>();
+            ExecuteProcedureSelectAll(ref authors);
+            ViewBag.Data = authors;
+            if (bookId != null)
+            {
+                Book book = ExecuteProcedureSelectWhere(bookId);
+                return View(book);
+            }
+            else
+                return View();
+        }
+
+        /// <summary>
+        /// Action is Insert book
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="publishedDate"></param>
+        /// <param name="isbn"></param>
+        /// <param name="authorId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult BookAction(string title, DateTime publishedDate, string isbn, int authorId)
+        {
+            ExecuteProcedureInsert(title, publishedDate, isbn, authorId);
+            return View("Books");
+        }
+
+        /// <summary>
+        /// Action is Delete
+        /// </summary>
+        /// <param name="bookId"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        public ActionResult BookAction(int bookId)
+        {
+            ExecuteProcedureDelete(bookId, "BooksDelete");
+            return View("Books");
+        }
+
+        /// <summary>
+        /// Action is Update book
+        /// </summary>
+        /// <param name="bookId"></param>
+        /// <param name=""></param>
+        /// <returns></returns>
+        [HttpPut]
+        public ActionResult BookAction(int bookId, string title, DateTime publishedDate, string isbn, int authorId)
+        {
+            ExecuteProcedureUpdate(title, publishedDate, isbn, authorId, bookId);
+            return View("Books");
         }
 
         //code bellow allow you to execute choosen stored procedure from local Database "WebLibraryDB"
 
         /// <summary>
-        /// Execute Select stored procedure for Books Table
+        /// Execute Select All stored procedure for Books Table
         /// </summary>
         /// <param name="books"></param>
-        private void ExecuteProcedureSelect(ref List<Book> books)
+        private void ExecuteProcedureSelectAll(ref List<Book> books)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["WebLibraryDB"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -58,7 +119,9 @@ namespace Web_Library.Controllers
                             Title = (string)sdr[1],
                             PublishedDate = pubdate,
                             ISBN = (string)sdr[3],
-                            AuthorName = (string)sdr[4]
+                            AuthorId = (int)sdr[4],
+                            FName = (string)sdr[5],
+                            LName = (string)sdr[6]
                         });
                     }
                 }
@@ -70,10 +133,10 @@ namespace Web_Library.Controllers
         }
 
         /// <summary>
-        /// Execute Select stored procedure for Authors Table
+        /// Execute Select All stored procedure for Authors Table
         /// </summary>
         /// <param name="authors"></param>
-        private void ExecuteProcedureSelect(ref List<Author> authors)
+        private void ExecuteProcedureSelectAll(ref List<Author> authors)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["WebLibraryDB"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -98,6 +161,49 @@ namespace Web_Library.Controllers
                 {
                 }
             }
+        }
+
+        /// <summary>
+        /// Execute Select Where stored procedure for Books table
+        /// </summary>
+        /// <param name="book"></param>
+        private Book ExecuteProcedureSelectWhere(int? bookId)
+        {
+            Book book = new Book();
+            string connectionString = ConfigurationManager.ConnectionStrings["WebLibraryDB"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("BooksSelectWhere", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@id", bookId);
+                    SqlDataReader sdr = cmd.ExecuteReader();
+                    while (sdr.Read())
+                    {
+                        DateTime? pubdate;
+
+                        if (DBNull.Value.Equals(sdr[2]))
+                            pubdate = null;
+                        else
+                            pubdate = (DateTime)sdr[2];
+
+                        book.ID = (int)sdr[0];
+                        book.Title = (string)sdr[1];
+                        book.PublishedDate = pubdate;
+                        book.ISBN = (string)sdr[3];
+                        book.AuthorId = (int)sdr[4];
+                        book.FName = (string)sdr[5];
+                        book.LName = (string)sdr[6];
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("My Error:" + ex);
+                }
+            }
+            return book;
         }
 
         /// <summary>

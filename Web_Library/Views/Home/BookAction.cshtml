@@ -1,0 +1,43 @@
+﻿@model Web_Library.Models.Book
+
+@{
+    ViewBag.Title = "Book Action";
+    
+}
+
+@section background {
+    <div id="back-image"></div>
+}
+
+<h2>BookAction</h2>
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Create New Task Form</legend>
+
+        <div>
+            <label>Title</label>
+            @Html.TextBoxFor(m => m.Title)
+        </div>
+
+        <div>
+            <label>Published Date</label>
+            @Html.TextBoxFor(m => m.PublishedDate)
+        </div>
+
+        <div>
+            <label>ISBN</label>
+            @Html.TextBoxFor(m => m.ISBN)
+        </div>
+
+        <div>
+            <label>Author</label>
+            @Html.TextBoxFor(m => m.AuthorName)
+        </div>
+
+        <input type="submit" value="Create" />
+
+    </fieldset>
+}
+

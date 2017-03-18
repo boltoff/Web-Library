@@ -15,7 +15,18 @@ namespace Web_Library.Models
 
         public string ISBN { get; set; }
 
-        public string AuthorName { get; set; }
+        public int AuthorId { get; set; }
 
+        public string FName { get; set; }
+
+        public string LName { get; set; }
+
+        public string AuthorName
+        {
+            get
+            {
+                return FName + " " + LName;
+            }
+        }
     }
 }
