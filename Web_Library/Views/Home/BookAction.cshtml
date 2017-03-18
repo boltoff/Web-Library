@@ -6,6 +6,7 @@
     ViewBag.Title = "Book Action";
 
     List<Author> authors = ViewBag.Data;
+    string controller = ViewBag.Controller;
 
     List<SelectListItem> list = new List<SelectListItem>();
     for (int i = 0; i < authors.Count; i++)
@@ -20,10 +21,12 @@
 
 <h2>BookAction</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(controller, "Home"))
 {
     <fieldset>
         <legend>Create New Task Form</legend>
+
+        @Html.HiddenFor(m => m.ID)
 
         <div>
             <label>Title</label>

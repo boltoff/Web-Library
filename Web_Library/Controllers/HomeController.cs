@@ -40,11 +40,15 @@ namespace Web_Library.Controllers
             ViewBag.Data = authors;
             if (bookId != null)
             {
+                ViewBag.Controller = "BookActionUpdate";
                 Book book = ExecuteProcedureSelectWhere(bookId);
                 return View(book);
             }
             else
+            {
+                ViewBag.Controller = "BookActionInsert";
                 return View();
+            }
         }
 
         /// <summary>
@@ -56,10 +60,10 @@ namespace Web_Library.Controllers
         /// <param name="authorId"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult BookAction(string title, DateTime publishedDate, string isbn, int authorId)
+        public ActionResult BookActionInsert(string title, DateTime publishedDate, string isbn, int authorId)
         {
             ExecuteProcedureInsert(title, publishedDate, isbn, authorId);
-            return View("Books");
+            return RedirectToAction("Books");
         }
 
         /// <summary>
@@ -67,11 +71,11 @@ namespace Web_Library.Controllers
         /// </summary>
         /// <param name="bookId"></param>
         /// <returns></returns>
-        [HttpDelete]
-        public ActionResult BookAction(int bookId)
+        [HttpPost]
+        public ActionResult BookActionDelete(int bookId)
         {
             ExecuteProcedureDelete(bookId, "BooksDelete");
-            return View("Books");
+            return RedirectToAction("Books");
         }
 
         /// <summary>
@@ -80,11 +84,11 @@ namespace Web_Library.Controllers
         /// <param name="bookId"></param>
         /// <param name=""></param>
         /// <returns></returns>
-        [HttpPut]
-        public ActionResult BookAction(int bookId, string title, DateTime publishedDate, string isbn, int authorId)
+        [HttpPost]
+        public ActionResult BookActionUpdate(int id, string title, DateTime publishedDate, string isbn, int authorId)
         {
-            ExecuteProcedureUpdate(title, publishedDate, isbn, authorId, bookId);
-            return View("Books");
+            ExecuteProcedureUpdate(title, publishedDate, isbn, authorId, id);
+            return RedirectToAction("Books");
         }
 
         //code bellow allow you to execute choosen stored procedure from local Database "WebLibraryDB"
