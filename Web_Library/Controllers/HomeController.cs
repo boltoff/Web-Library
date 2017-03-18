@@ -18,6 +18,8 @@ namespace Web_Library.Controllers
             return View();
         }
 
+        //code bellow allow you to work with Books
+
         public ActionResult Books()
         {
             List<Book> bookslist = new List<Book>();
@@ -26,11 +28,10 @@ namespace Web_Library.Controllers
             return View();
         }
 
-
         /// <summary>
         /// Get Insert or Update View
         /// </summary>
-        /// <param name="book">if book not null it's Update View</param>
+        /// <param name="bookId">if bookId not null it's Update View</param>
         /// <returns></returns>
         [HttpGet]
         public ActionResult BookAction(int? bookId = null)
@@ -41,7 +42,7 @@ namespace Web_Library.Controllers
             if (bookId != null)
             {
                 ViewBag.Controller = "BookActionUpdate";
-                Book book = ExecuteProcedureSelectWhere(bookId);
+                Book book = ExecuteProcedureSelectWhereBook(bookId);
                 return View(book);
             }
             else
@@ -67,7 +68,7 @@ namespace Web_Library.Controllers
         }
 
         /// <summary>
-        /// Action is Delete
+        /// Action is Delete book
         /// </summary>
         /// <param name="bookId"></param>
         /// <returns></returns>
@@ -88,6 +89,75 @@ namespace Web_Library.Controllers
         {
             ExecuteProcedureUpdate(title, publishedDate, isbn, authorId, id);
             return RedirectToAction("Books");
+        }
+
+        //code bellow allow you to work with Authors
+
+        public ActionResult Authors()
+        {
+            List<Author> authorslist = new List<Author>();
+            ExecuteProcedureSelectAll(ref authorslist);
+            ViewBag.Data = authorslist;
+            return View();
+        }
+
+        /// <summary>
+        /// Get Insert or Update View
+        /// </summary>
+        /// <param name="authorId">if bookId not null it's Update View</param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult AuthorAction(int? authorId = null)
+        {
+            if (authorId != null)
+            {
+                ViewBag.Controller = "AuthorActionUpdate";
+                Author author = ExecuteProcedureSelectWhereAuthor(authorId);
+                return View(author);
+            }
+            else
+            {
+                ViewBag.Controller = "AuthorActionInsert";
+                return View();
+            }
+        }
+
+        /// <summary>
+        /// Action is Insert author
+        /// </summary>
+        /// <param name="fName"></param>
+        /// <param name="lName"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult AuthorActionInsert(string fName, string lName)
+        {
+            ExecuteProcedureInsert(fName, lName);
+            return RedirectToAction("Authors");
+        }
+
+        /// <summary>
+        /// Action is Delete author
+        /// </summary>
+        /// <param name="authorId"></param>
+        /// <returns></returns>
+        public ActionResult AuthorActionDelete(int authorId)
+        {
+            ExecuteProcedureDelete(authorId, "AuthorsDelete");
+            return RedirectToAction("Authors");
+        }
+
+        /// <summary>
+        /// Action is Update author
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="fName"></param>
+        /// <param name="lName"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult AuthorActionUpdate(int id, string fName, string lName)
+        {
+            ExecuteProcedureUpdate(fName, lName, id);
+            return RedirectToAction("Authors");
         }
 
         //code bellow allow you to execute choosen stored procedure from local Database "WebLibraryDB"
@@ -167,10 +237,10 @@ namespace Web_Library.Controllers
         }
 
         /// <summary>
-        /// Execute Select Where stored procedure for Books table
+        /// Execute Select Where stored procedure for Books Table
         /// </summary>
         /// <param name="book"></param>
-        private Book ExecuteProcedureSelectWhere(int? bookId)
+        private Book ExecuteProcedureSelectWhereBook(int? bookId)
         {
             Book book = new Book();
             string connectionString = ConfigurationManager.ConnectionStrings["WebLibraryDB"].ConnectionString;
@@ -207,6 +277,39 @@ namespace Web_Library.Controllers
                 }
             }
             return book;
+        }
+
+        /// <summary>
+        /// Execute Select Where stored procedure for Authors Table
+        /// </summary>
+        /// <param name="authorId"></param>
+        /// <returns></returns>
+        private Author ExecuteProcedureSelectWhereAuthor(int? authorId)
+        {
+            Author author = new Author();
+            string connectionString = ConfigurationManager.ConnectionStrings["WebLibraryDB"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("AuthorsSelectWhere", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@id", authorId);
+                    SqlDataReader sdr = cmd.ExecuteReader();
+                    while (sdr.Read())
+                    {
+                        author.ID = (int)sdr[0];
+                        author.FName = (string)sdr[1];
+                        author.LName = (string)sdr[2];
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("My Error:" + ex);
+                }
+            }
+            return author;
         }
 
         /// <summary>

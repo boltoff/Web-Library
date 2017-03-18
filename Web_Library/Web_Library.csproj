@@ -205,6 +205,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Books.cshtml" />
     <Content Include="Views\Home\BookAction.cshtml" />
+    <Content Include="Views\Home\Authors.cshtml" />
+    <Content Include="Views\Home\AuthorAction.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

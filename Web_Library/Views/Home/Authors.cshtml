@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Authors";
+    var grid = new WebGrid(ViewBag.Data, rowsPerPage: 5, defaultSort: "ID");
+}
+
+@section background {
+    <div id="back-image"></div>
+}
+
+@Html.ActionLink("Back to Navigation", "Index", "Home", new { @class = "to-navigation-button" })
+@Html.ActionLink("Add New Author", "AuthorAction", "Home", new { @class = "to-navigation-button" })
+
+<div id="grid">
+    @grid.GetHtml(tableStyle: "table",
+        headerStyle: "header",
+        fillEmptyRows: true,
+        footerStyle: "grid-footer",
+        mode: WebGridPagerModes.All,
+        firstText: "<< First",
+        previousText: "< Prev",
+        nextText: "Next >",
+        lastText: "Last >>",
+        columns: new[]
+        {
+            grid.Column("FName", "First Name"),
+            grid.Column("LName", "Last Name"),
+            grid.Column(format: (item) => Html.ActionLink(
+                "Edit",
+                "AuthorAction",
+                "Home",
+                new {
+                    @authorId = item.Id
+                },
+                null)),
+            grid.Column(format: (item) => Html.ActionLink(
+                "Delete",
+                "AuthorActionDelete",
+                "Home",
+                new {
+                    @authorId = item.Id
+                },
+                new { onclick="return confirm('Are you sure you want to delete this author?')" }))
+        })
+</div>
+

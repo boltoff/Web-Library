@@ -1,0 +1,34 @@
+﻿@model Web_Library.Models.Author
+
+@{
+    ViewBag.Title = "Author Action";
+    string controller = ViewBag.Controller;
+}
+
+@section background {
+    <div id="back-image"></div>
+}
+
+<h2>AuthorAction</h2>
+
+@using (Html.BeginForm(controller, "Home"))
+{
+    <fieldset>
+        <legend>Create New Task Form</legend>
+
+        @Html.HiddenFor(m => m.ID)
+
+        <div>
+            <label>First Name</label>
+            @Html.TextBoxFor(m => m.FName)
+        </div>
+
+        <div>
+            <label>Last Name</label>
+            @Html.TextBoxFor(m => m.LName)
+        </div>
+
+        <input type="submit" value="Create" />
+
+    </fieldset>
+}
