@@ -1,8 +1,17 @@
 ﻿@model Web_Library.Models.Book
 
+@using Web_Library.Models
+
 @{
     ViewBag.Title = "Book Action";
-    
+
+    List<Author> authors = ViewBag.Data;
+
+    List<SelectListItem> list = new List<SelectListItem>();
+    for (int i = 0; i < authors.Count; i++)
+    {
+        list.Add(new SelectListItem() { Text = authors[i].FullName, Value = authors[i].ID.ToString() });
+    }
 }
 
 @section background {
@@ -33,7 +42,7 @@
 
         <div>
             <label>Author</label>
-            @Html.TextBoxFor(m => m.AuthorName)
+            @Html.DropDownListFor(m => m.AuthorId, list)
         </div>
 
         <input type="submit" value="Create" />
