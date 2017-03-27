@@ -96,7 +96,6 @@ namespace Web_Library.Controllers
         {
             List<Author> authorslist = new List<Author>();
             ExecuteProcedureSelectAll(ref authorslist);
-            //ViewBag.Data = authorslist;
             return View(authorslist);
         }
 
