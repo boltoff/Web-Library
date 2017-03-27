@@ -26,7 +26,7 @@
         {
             grid.Column("Title"),
             grid.Column("AuthorName", "Author"),
-            grid.Column("PublishedDate", "Published Date"),
+            grid.Column("PublishedDate", "Published Date", format: (item) => string.Format("{0:dd.MM.yyyy}", item.PublishedDate)),
             grid.Column("ISBN"),
             grid.Column(format: (item) => Html.ActionLink(
                 "Edit",
