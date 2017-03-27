@@ -24,8 +24,7 @@ namespace Web_Library.Controllers
         {
             List<Book> bookslist = new List<Book>();
             ExecuteProcedureSelectAll(ref bookslist);
-            ViewBag.Data = bookslist;
-            return View();
+            return View(bookslist);
         }
 
         /// <summary>
@@ -97,8 +96,8 @@ namespace Web_Library.Controllers
         {
             List<Author> authorslist = new List<Author>();
             ExecuteProcedureSelectAll(ref authorslist);
-            ViewBag.Data = authorslist;
-            return View();
+            //ViewBag.Data = authorslist;
+            return View(authorslist);
         }
 
         /// <summary>

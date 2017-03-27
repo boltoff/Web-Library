@@ -20,12 +20,12 @@
 
         <div>
             <label>First Name</label>
-            @Html.TextBoxFor(m => m.FName)
+            @Html.TextBoxFor(m => m.FName, new { required = "required" })
         </div>
 
         <div>
             <label>Last Name</label>
-            @Html.TextBoxFor(m => m.LName)
+            @Html.TextBoxFor(m => m.LName, new { required = "required" })
         </div>
 
         <input type="submit" value="Create" />

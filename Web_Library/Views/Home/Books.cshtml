@@ -1,7 +1,8 @@
-﻿
+﻿@model List<Web_Library.Models.Book>
+
 @{
     ViewBag.Title = "Books";
-    var grid = new WebGrid(ViewBag.Data, rowsPerPage: 5, defaultSort: "ID");
+    var grid = new WebGrid(Model, rowsPerPage: 5, defaultSort: "ID");
 }
 
 @section background {

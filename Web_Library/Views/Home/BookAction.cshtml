@@ -30,7 +30,7 @@
 
         <div>
             <label>Title</label>
-            @Html.TextBoxFor(m => m.Title)
+            @Html.TextBoxFor(m => m.Title, new { required = "required" })
         </div>
 
         <div>
@@ -40,7 +40,7 @@
 
         <div>
             <label>ISBN</label>
-            @Html.TextBoxFor(m => m.ISBN)
+            @Html.TextBoxFor(m => m.ISBN, new { required = "required" })
         </div>
 
         <div>
