@@ -15,6 +15,10 @@
     }
 }
 
+@section links {
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+}
+
 @section background {
     <div id="back-image"></div>
 }
@@ -33,28 +37,27 @@
     </script>
 }
 
-<h2>BookAction</h2>
 
 @using (Html.BeginForm(controller, "Home"))
 {
     <fieldset>
-        <legend>Create New Task Form</legend>
+        <legend>@ViewBag.Legend</legend>
 
         @Html.HiddenFor(m => m.ID)
 
         <div>
             <label>Title</label>
-            @Html.TextBoxFor(m => m.Title, new { required = "required" })
+            @Html.TextBoxFor(m => m.Title, new { required = "required", maxlength = 200 })
         </div>
 
         <div>
             <label>Published Date</label>
-            @Html.TextBoxFor(m => m.PublishedDate, new { @class = "pubdate", @readonly = "readonly", Value= DateTime.Today.ToShortDateString() })
+            @Html.TextBoxFor(m => m.PublishedDate, new { @class = "pubdate", @readonly = "readonly", Value = DateTime.Today.ToShortDateString() })
         </div>
 
         <div>
             <label>ISBN</label>
-            @Html.TextBoxFor(m => m.ISBN, new { required = "required" })
+            @Html.TextBoxFor(m => m.ISBN, new { required = "required", maxlength = 20 })
         </div>
 
         <div>
@@ -62,7 +65,7 @@
             @Html.DropDownListFor(m => m.AuthorId, list)
         </div>
 
-        <input type="submit" value="Create" />
+        <input type="submit" value=@ViewBag.ButtonName />
 
     </fieldset>
 }

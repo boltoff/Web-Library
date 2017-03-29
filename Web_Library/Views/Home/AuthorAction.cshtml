@@ -9,26 +9,24 @@
     <div id="back-image"></div>
 }
 
-<h2>AuthorAction</h2>
-
 @using (Html.BeginForm(controller, "Home"))
 {
     <fieldset>
-        <legend>Create New Task Form</legend>
+        <legend>@ViewBag.Legend</legend>
 
         @Html.HiddenFor(m => m.ID)
 
         <div>
             <label>First Name</label>
-            @Html.TextBoxFor(m => m.FName, new { required = "required" })
+            @Html.TextBoxFor(m => m.FName, new { required = "required", maxlength = 50 })
         </div>
 
         <div>
             <label>Last Name</label>
-            @Html.TextBoxFor(m => m.LName, new { required = "required" })
+            @Html.TextBoxFor(m => m.LName, new { required = "required", maxlength = 50 })
         </div>
 
-        <input type="submit" value="Create" />
+        <input type="submit" value=@ViewBag.ButtonName />
 
     </fieldset>
 }

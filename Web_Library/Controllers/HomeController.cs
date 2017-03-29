@@ -41,12 +41,16 @@ namespace Web_Library.Controllers
             if (bookId != null)
             {
                 ViewBag.Controller = "BookActionUpdate";
+                ViewBag.Legend = "Change Book";
+                ViewBag.ButtonName = "Save";
                 Book book = ExecuteProcedureSelectWhereBook(bookId);
                 return View(book);
             }
             else
             {
                 ViewBag.Controller = "BookActionInsert";
+                ViewBag.Legend = "Add Book";
+                ViewBag.ButtonName = "Add";
                 return View();
             }
         }
@@ -110,12 +114,16 @@ namespace Web_Library.Controllers
             if (authorId != null)
             {
                 ViewBag.Controller = "AuthorActionUpdate";
+                ViewBag.Legend = "Change Author";
+                ViewBag.ButtonName = "Save";
                 Author author = ExecuteProcedureSelectWhereAuthor(authorId);
                 return View(author);
             }
             else
             {
                 ViewBag.Controller = "AuthorActionInsert";
+                ViewBag.Legend = "Add Author";
+                ViewBag.ButtonName = "Add";
                 return View();
             }
         }
