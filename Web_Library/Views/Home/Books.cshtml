@@ -11,14 +11,16 @@
 
 <div class="row">
     <div class="col-xs-3">
-        <div class="navigation-text"><i class="fa fa-long-arrow-left fa-2x"></i></div>
+        <div class="navigation-text">
+            <i class="fa fa-long-arrow-left fa-2x"></i>
+        </div>
         @Html.ActionLink(" ", "Index", "Home", new { @class = "to-navigation-button" })
     </div>
     <div class="col-xs-6">
-        <div class="grid">
+        <div>
             @grid.GetHtml(tableStyle: "table",
         headerStyle: "header",
-        fillEmptyRows: true,
+        fillEmptyRows: false,
         footerStyle: "grid-footer",
         mode: WebGridPagerModes.All,
         firstText: "<< First",
@@ -51,7 +53,10 @@
         </div>
     </div>
     <div class="col-xs-3">
-        <div class="navigation-text">Add<br/>Book</div>
+        <div class="navigation-text">
+            Add
+            <br />Book
+        </div>
         @Html.ActionLink(" ", "BookAction", "Home", new { @class = "to-navigation-button" })
     </div>
 </div>
