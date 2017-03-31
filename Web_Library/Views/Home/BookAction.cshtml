@@ -34,6 +34,7 @@
                 dateFormat: "dd.mm.yy"
             });
         });
+        $('.pubdate').removeAttr("data-val-date");
     </script>
 }
 
@@ -52,28 +53,25 @@
                 <legend>@ViewBag.Legend</legend>
 
                 @Html.HiddenFor(m => m.ID)
+                <div style="margin-top: 5em">
+                    <div id="left-form" class="half">
+                        @Html.TextBoxFor(m => m.Title, new { @class = "forminput", placeholder = "Title" })
+                        @Html.ValidationMessageFor(x => x.Title)
 
-                <div>
-                    @Html.TextBoxFor(m => m.Title, new { placeholder = "Title" })
-                    @Html.ValidationMessageFor(x => x.Title)
+                        @Html.DropDownListFor(m => m.AuthorId, list, "-Select Author-", new { @class = "forminput" })
+                        @Html.ValidationMessageFor(x => x.AuthorId)
+                    </div>
+
+                    <div id="right-form" class="half">
+                        @Html.TextBoxFor(m => m.ISBN, new { @class = "forminput", placeholder = "ISBN" })
+                        @Html.ValidationMessageFor(x => x.ISBN)
+
+                        @Html.TextBoxFor(m => m.PublishedDate, new { @class = "pubdate forminput", placeholder = "Published Date" })
+                        @Html.ValidationMessageFor(x => x.PublishedDate)
+                    </div>
+
+                    <input type="submit" value=@ViewBag.ButtonName class="forminput" id="sub-btn" />
                 </div>
-
-                <div>
-                    @Html.TextBoxFor(m => m.PublishedDate, new { @class = "pubdate", placeholder = "Published Date" })
-                    @Html.ValidationMessageFor(x => x.PublishedDate)
-                </div>
-
-                <div>
-                    @Html.TextBoxFor(m => m.ISBN, new { placeholder = "ISBN" })
-                    @Html.ValidationMessageFor(x => x.ISBN)
-                </div>
-
-                <div>
-                    @Html.DropDownListFor(m => m.AuthorId, list, "-Select Author-")
-                    @Html.ValidationMessageFor(x => x.AuthorId)
-                </div>
-
-                <input type="submit" value=@ViewBag.ButtonName />
 
             </fieldset>
         }
