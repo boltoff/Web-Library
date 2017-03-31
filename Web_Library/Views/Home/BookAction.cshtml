@@ -38,35 +38,48 @@
 }
 
 
-@using (Html.BeginForm(controller, "Home"))
-{
-    <fieldset>
-        <legend>@ViewBag.Legend</legend>
-
-        @Html.HiddenFor(m => m.ID)
-
-        <div>
-            <label>Title</label>
-            @Html.TextBoxFor(m => m.Title, new { required = "required", maxlength = 200 })
+<div class="row">
+    <div class="col-xs-3">
+        <div class="navigation-text">
+            <i class="fa fa-long-arrow-left fa-2x"></i>
         </div>
+        @Html.ActionLink(" ", "Books", "Home", new { @class = "to-navigation-button" })
+    </div>
+    <div class="col-xs-6">
+        @using (Html.BeginForm(controller, "Home"))
+        {
+            <fieldset>
+                <legend>@ViewBag.Legend</legend>
 
-        <div>
-            <label>Published Date</label>
-            @Html.TextBoxFor(m => m.PublishedDate, new { @class = "pubdate", @readonly = "readonly", Value = DateTime.Today.ToShortDateString() })
-        </div>
+                @Html.HiddenFor(m => m.ID)
 
-        <div>
-            <label>ISBN</label>
-            @Html.TextBoxFor(m => m.ISBN, new { required = "required", maxlength = 20 })
-        </div>
+                <div>
+                    @Html.TextBoxFor(m => m.Title, new { placeholder = "Title" })
+                    @Html.ValidationMessageFor(x => x.Title)
+                </div>
 
-        <div>
-            <label>Author</label>
-            @Html.DropDownListFor(m => m.AuthorId, list)
-        </div>
+                <div>
+                    @Html.TextBoxFor(m => m.PublishedDate, new { @class = "pubdate", placeholder = "Published Date" })
+                    @Html.ValidationMessageFor(x => x.PublishedDate)
+                </div>
 
-        <input type="submit" value=@ViewBag.ButtonName />
+                <div>
+                    @Html.TextBoxFor(m => m.ISBN, new { placeholder = "ISBN" })
+                    @Html.ValidationMessageFor(x => x.ISBN)
+                </div>
 
-    </fieldset>
-}
+                <div>
+                    @Html.DropDownListFor(m => m.AuthorId, list, "-Select Author-")
+                    @Html.ValidationMessageFor(x => x.AuthorId)
+                </div>
+
+                <input type="submit" value=@ViewBag.ButtonName />
+
+            </fieldset>
+        }
+    </div>
+    <div class="col-xs-3"></div>
+</div>
+
+
 

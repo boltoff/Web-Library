@@ -196,7 +196,7 @@ namespace Web_Library.Controllers
                         {
                             ID = (int)sdr[0],
                             Title = (string)sdr[1],
-                            PublishedDate = pubdate,
+                            PublishedDate = (DateTime)sdr[2],
                             ISBN = (string)sdr[3],
                             AuthorId = (int)sdr[4],
                             FName = (string)sdr[5],
@@ -270,7 +270,7 @@ namespace Web_Library.Controllers
 
                         book.ID = (int)sdr[0];
                         book.Title = (string)sdr[1];
-                        book.PublishedDate = pubdate;
+                        book.PublishedDate = (DateTime)sdr[2];
                         book.ISBN = (string)sdr[3];
                         book.AuthorId = (int)sdr[4];
                         book.FName = (string)sdr[5];
