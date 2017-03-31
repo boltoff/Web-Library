@@ -170,7 +170,7 @@
     <Content Include="Content\Images\Bookshelf.jpg" />
     <Content Include="Content\Images\books.png" />
     <Content Include="Content\Images\fire.GIF" />
-    <Content Include="favicon.ico" />
+    <Content Include="Content\Images\favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

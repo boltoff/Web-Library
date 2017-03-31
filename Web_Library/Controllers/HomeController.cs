@@ -146,8 +146,14 @@ namespace Web_Library.Controllers
         [HttpPost]
         public ActionResult AuthorActionInsert(string fName, string lName)
         {
-            ExecuteProcedureInsert(fName, lName);
-            return RedirectToAction("Authors");
+            if (ModelState.IsValid)
+            {
+                ExecuteProcedureInsert(fName, lName);
+                return RedirectToAction("Authors");
+            }
+
+            return View();
+            
         }
 
         /// <summary>
@@ -171,8 +177,14 @@ namespace Web_Library.Controllers
         [HttpPost]
         public ActionResult AuthorActionUpdate(int id, string fName, string lName)
         {
-            ExecuteProcedureUpdate(fName, lName, id);
-            return RedirectToAction("Authors");
+            if (ModelState.IsValid)
+            {
+                ExecuteProcedureUpdate(fName, lName, id);
+                return RedirectToAction("Authors");
+            }
+
+            return View();
+            
         }
 
         //code bellow allow you to execute choosen stored procedure from local Database "WebLibraryDB"
