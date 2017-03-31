@@ -23,8 +23,15 @@ namespace Web_Library.Controllers
         public ActionResult Books()
         {
             List<Book> bookslist = new List<Book>();
-            ExecuteProcedureSelectAll(ref bookslist);
-            return View(bookslist);
+            try
+            {
+                ExecuteProcedureSelectAll(ref bookslist);
+                return View(bookslist);
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         /// <summary>
@@ -35,23 +42,31 @@ namespace Web_Library.Controllers
         [HttpGet]
         public ActionResult BookAction(int? bookId = null)
         {
-            List<Author> authors = new List<Author>();
-            ExecuteProcedureSelectAll(ref authors);
-            ViewBag.Data = authors;
-            if (bookId != null)
+            try
             {
-                ViewBag.Controller = "BookActionUpdate";
-                ViewBag.Legend = "Change Book";
-                ViewBag.ButtonName = "Save";
-                Book book = ExecuteProcedureSelectWhereBook(bookId);
-                return View(book);
+                List<Author> authors = new List<Author>();
+                ExecuteProcedureSelectAll(ref authors);
+                ViewBag.Data = authors;
+                if (bookId != null)
+                {
+                    ViewBag.Controller = "BookActionUpdate";
+                    ViewBag.Legend = "Change Book";
+                    ViewBag.ButtonName = "Save";
+                    Book book = ExecuteProcedureSelectWhereBook(bookId);
+                    return View(book);
+                }
+                else
+                {
+                    ViewBag.Controller = "BookActionInsert";
+                    ViewBag.Legend = "Add Book";
+                    ViewBag.ButtonName = "Add";
+                    return View();
+                }
             }
-            else
+
+            catch (Exception ex)
             {
-                ViewBag.Controller = "BookActionInsert";
-                ViewBag.Legend = "Add Book";
-                ViewBag.ButtonName = "Add";
-                return View();
+                return View("Error");
             }
         }
 
@@ -66,12 +81,20 @@ namespace Web_Library.Controllers
         [HttpPost]
         public ActionResult BookActionInsert(string title, DateTime publishedDate, string isbn, int authorId)
         {
-            if (ModelState.IsValid)
-            { 
-                ExecuteProcedureInsert(title, publishedDate, isbn, authorId);
-                return RedirectToAction("Books");
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    ExecuteProcedureInsert(title, publishedDate, isbn, authorId);
+                    return RedirectToAction("Books");
+                }
+                return View();
             }
-            return View();
+
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         /// <summary>
@@ -81,8 +104,16 @@ namespace Web_Library.Controllers
         /// <returns></returns>
         public ActionResult BookActionDelete(int bookId)
         {
-            ExecuteProcedureDelete(bookId, "BooksDelete");
-            return RedirectToAction("Books");
+            try
+            {
+                ExecuteProcedureDelete(bookId, "BooksDelete");
+                return RedirectToAction("Books");
+            }
+
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         /// <summary>
@@ -94,22 +125,38 @@ namespace Web_Library.Controllers
         [HttpPost]
         public ActionResult BookActionUpdate(int id, string title, DateTime publishedDate, string isbn, int authorId)
         {
-            if (ModelState.IsValid)
+            try
             {
-                ExecuteProcedureUpdate(title, publishedDate, isbn, authorId, id);
-                return RedirectToAction("Books");
+                if (ModelState.IsValid)
+                {
+                    ExecuteProcedureUpdate(title, publishedDate, isbn, authorId, id);
+                    return RedirectToAction("Books");
+                }
+
+                return View();
             }
-            
-            return View();
+
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         //code bellow allow you to work with Authors
 
         public ActionResult Authors()
         {
-            List<Author> authorslist = new List<Author>();
-            ExecuteProcedureSelectAll(ref authorslist);
-            return View(authorslist);
+            try
+            {
+                List<Author> authorslist = new List<Author>();
+                ExecuteProcedureSelectAll(ref authorslist);
+                return View(authorslist);
+            }
+
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         /// <summary>
@@ -120,20 +167,28 @@ namespace Web_Library.Controllers
         [HttpGet]
         public ActionResult AuthorAction(int? authorId = null)
         {
-            if (authorId != null)
+            try
             {
-                ViewBag.Controller = "AuthorActionUpdate";
-                ViewBag.Legend = "Change Author";
-                ViewBag.ButtonName = "Save";
-                Author author = ExecuteProcedureSelectWhereAuthor(authorId);
-                return View(author);
+                if (authorId != null)
+                {
+                    ViewBag.Controller = "AuthorActionUpdate";
+                    ViewBag.Legend = "Change Author";
+                    ViewBag.ButtonName = "Save";
+                    Author author = ExecuteProcedureSelectWhereAuthor(authorId);
+                    return View(author);
+                }
+                else
+                {
+                    ViewBag.Controller = "AuthorActionInsert";
+                    ViewBag.Legend = "Add Author";
+                    ViewBag.ButtonName = "Add";
+                    return View();
+                }
             }
-            else
+
+            catch (Exception ex)
             {
-                ViewBag.Controller = "AuthorActionInsert";
-                ViewBag.Legend = "Add Author";
-                ViewBag.ButtonName = "Add";
-                return View();
+                return View("Error");
             }
         }
 
@@ -146,14 +201,21 @@ namespace Web_Library.Controllers
         [HttpPost]
         public ActionResult AuthorActionInsert(string fName, string lName)
         {
-            if (ModelState.IsValid)
+            try
             {
-                ExecuteProcedureInsert(fName, lName);
-                return RedirectToAction("Authors");
+                if (ModelState.IsValid)
+                {
+                    ExecuteProcedureInsert(fName, lName);
+                    return RedirectToAction("Authors");
+                }
+
+                return View();
             }
 
-            return View();
-            
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         /// <summary>
@@ -163,8 +225,16 @@ namespace Web_Library.Controllers
         /// <returns></returns>
         public ActionResult AuthorActionDelete(int authorId)
         {
-            ExecuteProcedureDelete(authorId, "AuthorsDelete");
-            return RedirectToAction("Authors");
+            try
+            {
+                ExecuteProcedureDelete(authorId, "AuthorsDelete");
+                return RedirectToAction("Authors");
+            }
+
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
         }
 
         /// <summary>
@@ -177,14 +247,22 @@ namespace Web_Library.Controllers
         [HttpPost]
         public ActionResult AuthorActionUpdate(int id, string fName, string lName)
         {
-            if (ModelState.IsValid)
+            try
             {
-                ExecuteProcedureUpdate(fName, lName, id);
-                return RedirectToAction("Authors");
+                if (ModelState.IsValid)
+                {
+                    ExecuteProcedureUpdate(fName, lName, id);
+                    return RedirectToAction("Authors");
+                }
+
+                return View();
             }
 
-            return View();
-            
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
+
         }
 
         //code bellow allow you to execute choosen stored procedure from local Database "WebLibraryDB"
@@ -463,17 +541,11 @@ namespace Web_Library.Controllers
             string connectionString = ConfigurationManager.ConnectionStrings["WebLibraryDB"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                try
-                {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(deleteProcedureName, conn);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@id", id);
                     SqlDataReader sdr = cmd.ExecuteReader();
-                }
-                catch (Exception ex)
-                {
-                }
             }
         }
     }

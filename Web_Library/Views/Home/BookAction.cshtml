@@ -5,10 +5,13 @@
 @{
     ViewBag.Title = "Book Action";
 
-    List<Author> authors = ViewBag.Data;
+    List<Author>
+    authors = ViewBag.Data;
     string controller = ViewBag.Controller;
 
-    List<SelectListItem> list = new List<SelectListItem>();
+    List<SelectListItem>
+        list = new List<SelectListItem>
+            ();
     for (int i = 0; i < authors.Count; i++)
     {
         list.Add(new SelectListItem() { Text = authors[i].FullName, Value = authors[i].ID.ToString() });
@@ -79,15 +82,15 @@
                             }
                         }
 
-                            @Html.TextBoxFor(m => m.PublishedDate, new { @class = "pubdate forminput", @Value = publishedDate, placeholder = "Published Date" })
-                            @Html.ValidationMessageFor(x => x.PublishedDate)
-                        </div>
-
-                        <input type="submit" value=@ViewBag.ButtonName class="forminput" id="sub-btn" />
+                        @Html.TextBoxFor(m => m.PublishedDate, new { @class = "pubdate forminput", @Value = publishedDate, placeholder = "Published Date" })
+                        @Html.ValidationMessageFor(x => x.PublishedDate)
                     </div>
 
-                </fieldset>
-                        }
+                    <input type="submit" value=@ViewBag.ButtonName class="forminput" id="sub-btn" />
+                </div>
+
+            </fieldset>
+                            }
     </div>
     <div class="col-xs-3"></div>
 </div>
