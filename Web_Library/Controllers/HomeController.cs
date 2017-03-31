@@ -66,8 +66,12 @@ namespace Web_Library.Controllers
         [HttpPost]
         public ActionResult BookActionInsert(string title, DateTime publishedDate, string isbn, int authorId)
         {
-            ExecuteProcedureInsert(title, publishedDate, isbn, authorId);
-            return RedirectToAction("Books");
+            if (ModelState.IsValid)
+            { 
+                ExecuteProcedureInsert(title, publishedDate, isbn, authorId);
+                return RedirectToAction("Books");
+            }
+            return View();
         }
 
         /// <summary>
@@ -90,8 +94,13 @@ namespace Web_Library.Controllers
         [HttpPost]
         public ActionResult BookActionUpdate(int id, string title, DateTime publishedDate, string isbn, int authorId)
         {
-            ExecuteProcedureUpdate(title, publishedDate, isbn, authorId, id);
-            return RedirectToAction("Books");
+            if (ModelState.IsValid)
+            {
+                ExecuteProcedureUpdate(title, publishedDate, isbn, authorId, id);
+                return RedirectToAction("Books");
+            }
+            
+            return View();
         }
 
         //code bellow allow you to work with Authors

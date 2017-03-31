@@ -66,15 +66,28 @@
                         @Html.TextBoxFor(m => m.ISBN, new { @class = "forminput", placeholder = "ISBN" })
                         @Html.ValidationMessageFor(x => x.ISBN)
 
-                        @Html.TextBoxFor(m => m.PublishedDate, new { @class = "pubdate forminput", placeholder = "Published Date" })
-                        @Html.ValidationMessageFor(x => x.PublishedDate)
+                        @{
+                            string publishedDate;
+                            if (controller == "BookActionUpdate")
+                            {
+                                publishedDate = Model.PublishedDate.ToShortDateString();
+                            }
+                            else
+                            {
+                                publishedDate = "";
+
+                            }
+                        }
+
+                            @Html.TextBoxFor(m => m.PublishedDate, new { @class = "pubdate forminput", @Value = publishedDate, placeholder = "Published Date" })
+                            @Html.ValidationMessageFor(x => x.PublishedDate)
+                        </div>
+
+                        <input type="submit" value=@ViewBag.ButtonName class="forminput" id="sub-btn" />
                     </div>
 
-                    <input type="submit" value=@ViewBag.ButtonName class="forminput" id="sub-btn" />
-                </div>
-
-            </fieldset>
-        }
+                </fieldset>
+                        }
     </div>
     <div class="col-xs-3"></div>
 </div>

@@ -197,7 +197,14 @@ span {
 	width: 50%;
 }
 
-.testdiv {
-	border: 2px solid red;
+#sub-btn {
+    background-color: rgba(83, 126, 83, 0.45);
+    color: white;
+    transition-duration: 0.8s;
+}
+
+#sub-btn:hover {
+    background-color: rgba(83, 126, 83, 1);
+    box-shadow: rgba(0,0,0,0.4) 2px 1px;
 }
 

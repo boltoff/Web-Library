@@ -9,24 +9,37 @@
     <div id="back-image"></div>
 }
 
-@using (Html.BeginForm(controller, "Home"))
-{
-    <fieldset>
-        <legend>@ViewBag.Legend</legend>
-
-        @Html.HiddenFor(m => m.ID)
-
-        <div>
-            <label>First Name</label>
-            @Html.TextBoxFor(m => m.FName, new { required = "required", maxlength = 50 })
+<div class="row">
+    <div class="col-xs-3">
+        <div class="navigation-text">
+            <i class="fa fa-long-arrow-left fa-2x"></i>
         </div>
+        @Html.ActionLink(" ", "Authors", "Home", new { @class = "to-navigation-button" })
+    </div>
+    <div class="col-xs-6">
+        @using (Html.BeginForm(controller, "Home"))
+        {
+            <fieldset>
+                <legend>@ViewBag.Legend</legend>
 
-        <div>
-            <label>Last Name</label>
-            @Html.TextBoxFor(m => m.LName, new { required = "required", maxlength = 50 })
-        </div>
+                @Html.HiddenFor(m => m.ID)
+                <div style="margin-top: 5em">
+                    <div id="left-form" class="half">
+                        @Html.TextBoxFor(m => m.FName, new { @class = "forminput", placeholder = "First Name"})
+                        @Html.ValidationMessageFor(x => x.FName)
+                    </div>
 
-        <input type="submit" value=@ViewBag.ButtonName />
+                    <div id="right-form" class="half">
+                        @Html.TextBoxFor(m => m.LName, new { @class = "forminput", placeholder = "Last Name" })
+                        @Html.ValidationMessageFor(x => x.LName)
+                    </div>
 
-    </fieldset>
-}
+                    <input type="submit" value=@ViewBag.ButtonName id="sub-btn" class = "forminput" />
+                </div>
+            </fieldset>
+        }
+    </div>
+    <div class="col-xs-3"></div>
+</div>
+
+
